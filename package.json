@@ -1,0 +1,27 @@
+{
+  "name": "faa-info",
+  "version": "0.0.1",
+  "description": "FAA airport info service for Amazon Alexa",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "faa",
+    "node",
+    "amazon",
+    "alexa",
+    "voice"
+  ],
+  "author": "Holger Noesekabel",
+  "license": "MIT",
+  "dependencies": {
+    "alexa-app": "^2.3.4",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "lodash": "^4.16.2",
+    "mocha": "^3.0.2",
+    "request": "^2.75.0",
+    "request-promise": "^4.1.1"
+  }
+}
