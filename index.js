@@ -16,7 +16,7 @@ app.intent('airportinfo',
     'slots': {
       'AIRPORTCODE': 'FAACODES'
     },
-    'utterances': ['{|flight|airport} {|delay|status} {|info} {|for} {-|AIRPORTCODE}']
+    'utterances': ['{|flight|airport} {|delay|status} {|info|information} {|for|at} {-|AIRPORTCODE}']
   },
   function(req, res) {
     //get the slot
@@ -30,14 +30,28 @@ app.intent('airportinfo',
       let faaHelper = new FAADataHelper();
       faaHelper.requestAirportStatus(airportCode).then(function(airportStatus) {
         console.log(airportStatus);
-        res.say(faaHelper.formatAirportStatus(airportStatus)).send();
+        res.say(faaHelper.formatAirportStatus(airportStatus)).shouldEndSession(true).send();
       }).catch(function(err) {
         console.log(err.statusCode);
         let prompt = 'I didn\'t have data for an airport code of ' + airportCode;
-        res.say(prompt).reprompt(reprompt).shouldEndSession(false).send();
+        res.say(prompt).reprompt(reprompt).shouldEndSession(true).send();
       });
       return false;
     }
   }
 );
+
+var exitFunction = function(request, response) {
+  var speechOutput = 'Goodbye!';
+  response.say(speechOutput);
+};
+app.intent('AMAZON.StopIntent', exitFunction);
+app.intent('AMAZON.CancelIntent', exitFunction);
+
+app.intent('AMAZON.HelpIntent', function(request, response) {
+  let speechOutput = 'To request information on an airport, request it by it\'s status code.' +
+    'For example, to get information about atlanta hartsfield airport, say airport status for ATL';
+  response.say(speechOutput);
+});
+
 module.exports = app;
