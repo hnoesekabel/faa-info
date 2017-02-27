@@ -1,5 +1,6 @@
 'use strict';
 
+// test
 module.change_code = 1;
 const _ = require('lodash');
 const Alexa = require('alexa-app');
